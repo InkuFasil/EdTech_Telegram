@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdTech Hub ET - Professional Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .content {
+            padding: 24px 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .register-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .register-btn:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .success-message h2 {
+            color: #4CAF50;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+        
+        .success-message p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        
+        .continue-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Daily Activity Styles */
+        .activity-container {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .activity-header {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .day-number {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+        
+        .activity-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .activity-content {
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section-content {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 12px;
+            padding-left: 32px;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #4CAF50;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .reflection-questions {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .share-action {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .prev-btn {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Registration Form -->
+    <div id="registrationForm" class="container">
+        <div class="header">
+            <h1>EdTech Hub ET</h1>
+            <p>Professional Development Registration</p>
+        </div>
+        <div class="content">
+            <p style="margin-bottom: 24px; color: #666; line-height: 1.5;">
+                Please fill out the form below to register for our upcoming professional development activities for teachers in Ethiopia.
+            </p>
+            <form id="regForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="school">School *</label>
+                    <input type="text" id="school" name="school" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+251..." required>
+                </div>
+                <button type="submit" class="register-btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="container hidden">
+        <div class="success-message">
+            <div class="success-icon">✅</div>
+            <h2>Registration Successful!</h2>
+            <p>Thank you for registering! We will be in touch with more details.</p>
+            <button class="continue-btn" onclick="showDailyActivity()">Start Daily Activities</button>
+        </div>
+    </div>
+
+    <!-- Daily Activity Interface -->
+    <div id="dailyActivity" class="container hidden">
+        <div class="activity-container">
+            <div class="activity-header">
+                <div class="day-number">Day 1</div>
+                <div class="activity-title">Master the 2-Minute Exit Ticket</div>
+            </div>
+            <div class="activity-content">
+                <div class="section">
+                    <div class="section-title">The Why</div>
+                    <div class="section-content">
+                        Exit tickets help you quickly assess student understanding and identify who needs extra support before the next lesson. This simple strategy prevents students from falling behind and gives you actionable data in just 2 minutes.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">The How</div>
+                    <ol class="steps">
+                        <li>In the last 5 minutes of class, ask students one specific question about today's lesson</li>
+                        <li>Have students write their answer on a small piece of paper with their name</li>
+                        <li>Collect the papers as students leave (this is your "exit ticket")</li>
+                        <li>Quickly sort responses into "got it," "almost there," and "needs help" piles</li>
+                    </ol>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">The Example</div>
+                    <div class="section-content">
+                        After teaching fractions, ask: "Draw a circle and shade 3/4 of it." Students who can do this accurately "got it," those who shade close to 3/4 are "almost there," and those who struggle need tomorrow's review group.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">The Reflect</div>
+                    <div class="reflection-questions">
+                        <p><strong>Think about it:</strong></p>
+                        <p>• What's one topic your students struggled with recently that an exit ticket could have caught earlier?</p>
+                        <p>• How might knowing who "got it" vs. "needs help" change how you start tomorrow's lesson?</p>
+                    </div>
+                </div>
+
+                <div class="share-action">
+                    <div class="section-title" style="color: white; margin-bottom: 8px;">The Share</div>
+                    <p>Try one exit ticket this week, then share with a colleague: "Here's the most surprising thing I learned about my students' understanding."</p>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn prev-btn" onclick="previousDay()" disabled>← Previous</button>
+                    <button class="nav-btn next-btn" onclick="nextDay()">Next Day →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Registration form handling
+        document.getElementById('regForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const fullName = document.getElementById('fullName').value.trim();
+            const school = document.getElementById('school').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            if (fullName && school && phone) {
+                // Hide form and show success message
+                document.getElementById('registrationForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+            }
+        });
+
+        // Show daily activity interface
+        function showDailyActivity() {
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('dailyActivity').classList.remove('hidden');
+        }
+
+        // Daily activity data
+        const activities = [
+            {
+                day: 1,
+                title: "Master the 2-Minute Exit Ticket",
+                why: "Exit tickets help you quickly assess student understanding and identify who needs extra support before the next lesson. This simple strategy prevents students from falling behind and gives you actionable data in just 2 minutes.",
+                steps: [
+                    "In the last 5 minutes of class, ask students one specific question about today's lesson",
+                    "Have students write their answer on a small piece of paper with their name",
+                    "Collect the papers as students leave (this is your \"exit ticket\")",
+                    "Quickly sort responses into \"got it,\" \"almost there,\" and \"needs help\" piles"
+                ],
+                example: "After teaching fractions, ask: \"Draw a circle and shade 3/4 of it.\" Students who can do this accurately \"got it,\" those who shade close to 3/4 are \"almost there,\" and those who struggle need tomorrow's review group.",
+                reflect: [
+                    "What's one topic your students struggled with recently that an exit ticket could have caught earlier?",
+                    "How might knowing who \"got it\" vs. \"needs help\" change how you start tomorrow's lesson?"
+                ],
+                share: "Try one exit ticket this week, then share with a colleague: \"Here's the most surprising thing I learned about my students' understanding.\""
+            },
+            {
+                day: 2,
+                title: "Turn Any Lesson into a Game",
+                why: "Gamification increases student engagement and motivation by tapping into their natural desire for achievement and competition. Even simple game elements can transform a routine lesson into an exciting challenge.",
+                steps: [
+                    "Choose one activity from your lesson plan (review, practice, or discussion)",
+                    "Add a point system: correct answers = 1 point, helping others = 2 points",
+                    "Set a class goal (like \"reach 50 points together\") or create teams",
+                    "Celebrate when the goal is reached with a simple reward (extra recess, music during work time)"
+                ],
+                example: "During math practice, divide the class into teams. Each correct problem earns a point, and explaining how to solve it earns bonus points. First team to 15 points gets to choose tomorrow's brain break activity.",
+                reflect: [
+                    "Which of your regular activities could benefit most from a game-like structure?",
+                    "What simple rewards would motivate your students without creating extra work for you?"
+                ],
+                share: "After trying gamification, tell a colleague: \"Here's how adding points changed my students' energy level during [specific activity].\""
+            },
+            {
+                day: 3,
+                title: "Create Three Learning Paths",
+                why: "Students learn at different paces and in different ways. Offering multiple paths to the same learning goal ensures every student can succeed while being appropriately challenged.",
+                steps: [
+                    "Take tomorrow's main activity and create three versions: basic, standard, and advanced",
+                    "Make the basic version shorter with more support (examples, sentence starters, or visual aids)",
+                    "Keep the standard version as your original plan",
+                    "Add an extension or deeper question to create the advanced version"
+                ],
+                example: "For a writing assignment about animals, basic students get a template with sentence starters, standard students write freely with a checklist, and advanced students research and compare two animals' habitats.",
+                reflect: [
+                    "Looking at your class, which students would benefit from each path?",
+                    "How can you make choosing a path feel like a positive choice rather than being \"sorted\"?"
+                ],
+                share: "After trying differentiated paths, share with your team: \"Here's what surprised me about which students chose which level.\""
+            }
+        ];
+
+        let currentDay = 0;
+
+        function updateActivity() {
+            const activity = activities[currentDay];
+            
+            // Update header
+            document.querySelector('.day-number').textContent = `Day ${activity.day}`;
+            document.querySelector('.activity-title').textContent = activity.title;
+            
+            // Update content sections
+            document.querySelector('.section-content').textContent = activity.why;
+            
+            // Update steps
+            const stepsList = document.querySelector('.steps');
+            stepsList.innerHTML = '';
+            activity.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                stepsList.appendChild(li);
+            });
+            
+            // Update example
+            const sections = document.querySelectorAll('.section');
+            sections[2].querySelector('.section-content').textContent = activity.example;
+            
+            // Update reflection questions
+            const reflectionDiv = document.querySelector('.reflection-questions');
+            reflectionDiv.innerHTML = '<p><strong>Think about it:</strong></p>';
+            activity.reflect.forEach(question => {
+                const p = document.createElement('p');
+                p.textContent = `• ${question}`;
+                reflectionDiv.appendChild(p);
+            });
+            
+            // Update share action
+            const shareDiv = document.querySelector('.share-action');
+            shareDiv.innerHTML = `
+                <div class="section-title" style="color: white; margin-bottom: 8px;">The Share</div>
+                <p>${activity.share}</p>
+            `;
+            
+            // Update navigation buttons
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            prevBtn.disabled = currentDay === 0;
+            nextBtn.disabled = currentDay === activities.length - 1;
+            
+            if (nextBtn.disabled) {
+                nextBtn.textContent = 'More Coming Soon!';
+            } else {
+                nextBtn.textContent = 'Next Day →';
+            }
+        }
+
+        function previousDay() {
+            if (currentDay > 0) {
+                currentDay--;
+                updateActivity();
+            }
+        }
+
+        function nextDay() {
+            if (currentDay < activities.length - 1) {
+                currentDay++;
+                updateActivity();
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97a6a290500a7e19',t:'MTc1NzA4NDgzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
